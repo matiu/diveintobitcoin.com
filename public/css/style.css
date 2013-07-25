@@ -1,0 +1,11 @@
+body {
+  margin: 20px 5px;
+}
+
+#menu {
+  position: fixed;
+}
+
+#menu ul {
+  width: 100%;
+}
