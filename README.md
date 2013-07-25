@@ -1,4 +1,7 @@
-diveintobitcoin.com
-===================
+Dive Into Bitcoin
+=================
 
-Bitcoin guide for newbs.
+Introduction
+------------
+
+Bitcoin is a decentralized public ledger.
