@@ -12,13 +12,13 @@ That's a mouthful, so let's go through these terms one-by-one and make sense of 
 
 First, bitcoin is a *protocol*, which means it is a way of going about doing something.
 Another example of a protocol is driving on the right side of the road.
-This is a way of going about doing something (driving on the street) that, so long as other people do things this way (such as driving on the right side rather than the left side), it all works out.
+This is a way of going about doing something (driving on the street), where so long as other people do things this way (such as driving on the right side rather than the left side), it all works out.
 Other important examples of protocols are: the internet, email, the web, using gold as money, and using dollars as money.
 
 Like gold and dollars, bitcoin is a protocol for *storing and transmitting value*.
 So long as other people value bitcoins, they store value, just like gold and dollars, and you can also transmit this value to other people (by sending them bitcoins), just like gold and dollars.
 
-Unlike gold, however, you do not need to be physically near someone to transmit bitcoins to them. Bitcoins can't be sent at nearly instant speeds between any two places on the planet. Bitcoin is therefore *independent of location*.
+Unlike gold, however, you do not need to be physically near someone to transmit bitcoins to them. Bitcoins can be sent at nearly instant speeds between any two places on the planet. Bitcoin is therefore *independent of location*.
 
 And unlike dollars, you do not have to trust a central authority to maintain balances (like banks or the Federal Reserve).
 If you have dollars in a bank account, you are trusting that the bank really has the dollars.
@@ -28,7 +28,7 @@ Bitcoin is decentralized--it *doesn't depend on a trusted central authority*.
 
 That's bitcoin in a nutshell:
 A *protocol* for *storing and transmitting value* that is both *independent of location* and *doesn't depend on a trusted central authority*.
-It is also the first protocol to ever have these properties.
+It is also the first protocol to ever have all of these properties.
 Oh, and one more thing: There will only ever be 21 million of them, but they are divisible to eight decimal places so there is plenty to go around.
 
 How Bitcoin Works
@@ -51,11 +51,20 @@ The first bitcoin client software was written by Satoshi Nakamoto and is availab
 Buying and Selling Bitcoins
 ---------------------------
 
+Accepting Bitcoins
+------------------
+
 The Price
 ---------
 
+Keeping Your Bitcoins Safe and Secure
+-------------------------------------
+
 Mining
 ------
+
+Altchains
+---------
 
 Securities
 ----------
@@ -63,5 +72,27 @@ Securities
 Frequently Asked Questions
 --------------------------
 
+**Q: Won't there be endless altchains, effectively creating hyperinflation?**
+
+**Q: Won't a 51% attack destroy it?**
+
+**Q: Won't the government kill it?**
+
+**Q: How will government collect taxes?**
+
+**Q: Won't the blockchain take up too much space?**
+
+**Q: Isn't bitcoin deflationary? Isn't that bad?**
+
+Noteworthy Events in Bitcoin's History
+--------------------------------------
+
+The History of Money, Technology, and Cryptography
+--------------------------------------------------
+
+Conclusion
+----------
+
 Resources for More Information
 ------------------------------
+
