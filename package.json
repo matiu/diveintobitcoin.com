@@ -1,0 +1,17 @@
+{
+  "name": "diveintobitcoin.com",
+  "version": "0.0.1",
+  "description": "Dive Into Bitcoin",
+  "dependencies":{
+    "express":"3.3.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ryanxcharles/diveintobitcoin.com.git"
+  },
+  "author": "Ryan X. Charles",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/ryanxcharles/diveintobitcoin.com/issues"
+  }
+}
