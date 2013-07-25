@@ -7,7 +7,8 @@ Introduction
 ------------
 
 Bitcoin is a protocol for storing and transmitting value that is both independent of location and doesn't depend on a trusted central authority.
-Let's go through these terms one-by-one and make sense of them.
+
+That's a mouthful, so let's go through these terms one-by-one and make sense of them.
 
 First, bitcoin is a *protocol*, which means it is a way of going about doing something.
 Another example of a protocol is driving on the right side of the road.
@@ -47,3 +48,20 @@ In principle, if you could talk loud enough, fast enough, and could do complex c
 But because bitcoin is somewhat complicated, it is practical to use software to perform the protocol instead.
 The first bitcoin client software was written by Satoshi Nakamoto and is available at bitcoin.org.
 
+Buying and Selling Bitcoins
+---------------------------
+
+The Price
+---------
+
+Mining
+------
+
+Securities
+----------
+
+Frequently Asked Questions
+--------------------------
+
+Resources for More Information
+------------------------------
