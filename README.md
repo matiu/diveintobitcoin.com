@@ -11,7 +11,7 @@ Let's go through these terms one-by-one and make sense of them.
 
 First, bitcoin is a *protocol*, which means it is a way of going about doing something.
 Another example of a protocol is driving on the right side of the road.
-This is a way of going about doing things that, so long as other people do things this way (such as driving on the right side rather than the left side), it all works out.
+This is a way of going about doing something (driving on the street) that, so long as other people do things this way (such as driving on the right side rather than the left side), it all works out.
 Other important examples of protocols are: the internet, email, the web, using gold as money, and using dollars as money.
 
 Like gold and dollars, bitcoin is a protocol for *storing and transmitting value*.
@@ -33,10 +33,12 @@ Oh, and one more thing: There will only ever be 21 million of them, but they are
 How Bitcoin Works
 -----------------
 
-In order to understand how bitcoin works, we need to understand a few elements first:
+Bitcoin is often called a "decentralized digital currency", because it is digital, like dollars, but there is no person or company who runs it.
+It is shocking that it is possible for such a thing to exist, and it's important to understand how it works.
+But before we do that, we need to understand a few elements first:
 * Hash functions
 * Asymmetric key cryptography for digital signatures
-* peer-to-peer (p2p) networks
+* Peer-to-peer (p2p) networks
 
 The Software
 ------------
