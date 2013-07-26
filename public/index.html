@@ -58,7 +58,61 @@ A <em>protocol</em> for <em>storing and transmitting value</em> that is both <em
 It is also the first protocol to ever have all of these properties.
 Oh, and one more thing: There will only ever be 21 million of them, but they are divisible to eight decimal places so there is plenty to go around.</p>
 
-<h3>Bitcoin is Open-Source Software</h3>
+<h3 id="bitcoinisopensourcesoftware"><a href="#bitcoinisopensourcesoftware">Bitcoin is Open-Source Software</a></h3>
+
+<p>
+Bitcoin is open-source software that lets you, 1) view how many bitcoins you have, 2) send bitcoins to other people, and finally 3) mine for new bitcoins or transaction fees.
+</p>
+
+<p>
+It&#8217;s important that bitcoin is open-source rather than closed-source.
+There are two kinds of software: closed-source software, where the people who created the software do not want you to see how the software works or be able to modify it, and open-source software, where the creators want you to be able to see how the software works and be able to modify it.
+Beacuse bitcoin is open-source, you are free to look at it in detail and see how it works, confirm that it is secure, and even modify it to suit your needs.
+</p>
+
+<p>
+It is possible to modify the bitcoin software, but you have to be careful: If you choose to modify the software in a backwards-incompatible way, you may not be able to send or receive bitcoins.
+If you choose to make backwards-incompatible changes to bitcoin, you will need to convince other people to go along with your changes, otherwise you will effectively be locking yourself out of the network.
+</p>
+
+<p>When you run the bitcoin software, you will see your balance, which is how many bitcoins you have.
+This balance is divisible to 8 decimal places, so for instance you may see that you have exactly 9.39387178 bitcoins.
+However, you cannot have 9.393871789 bitcoins, since that requires too many decimal places (although it is possible that in the future we may all decide to allow greater precision in bitcoin balances).
+You also cannot ever have more than 21 million bitcoins, since that is the limit of bitcoins that will ever be created.
+</p>
+
+<p>A bitcoin balance is actually made up of the balances of more than one address.
+You can have as many addresses as you want.
+An address is a place where you may receive bitcoins.
+When you want to receive bitcoins from someone, you give them one of your addresses (for anonymity purposes, it is better to give a new address every time you wish to receive bitcoins, although that is not technically necessary).
+Your balance is therefore the sum of the balances of all the bitcoin addresses you have.
+</p>
+
+<p>
+A bitcoin address is the hash of a public key, and to each public key corresponds a private key.
+Only you have your private keys&#8212;and you shouldn&#8217;t give them to anyone!
+When you want to send bitcoins to someone, you type in their address, and your bitcoin software will sign a transaction using your private keys.
+Since only you have your private keys, only you can sign transactions out of your addresses.
+Other people on the network can verify that the person with the private keys must have signed the transaction without needing to see your private keys.
+</p>
+
+<p>The final thing you can do with bitcoin software is mine.
+Mining is the process of verifying the recent pool of transactions, and calculating a proof-of-work hash for the transactions (plus the hash of the previous transactions), and when you find a hash that is sufficiently low, you are free to give yourself new bitcoins, as well as any bitcoins that people sending transactions have optionally included as transaction fees.
+When miners verify transactions, they are performing the valuable service of making sure no one is double spending bitcoins or inventing bitcoins out of thin-air (although if you run a full-node, it is possible to verify transactions without mining).
+Their reward is new bitcoins and transaction fees.
+Mining is where new bitcoins come from, and it is how the security of the network is provided by computational power.
+However, the rate with which new bitcoins are released gradually diminishes over time until we near 21 million.
+At that point, miners will be rewarded almost entirely by transaction fees rather than new bitcoins.
+</p>
+
+<p>
+In summary, bitcoin is open-source software (and as such can be viewed and modified), which lets you hold bitcoins, send bitcoins, and mine for bitcoins.
+If this section was too technical for you, don&#8217;t worry, it takes a long time to absorb.
+If you are curious, the <a href="#howbitcoinworks">How Bitcoin Works</a> section provides a more thorough explanation of how bitcoin works.
+The next few analogies are easier to understand.
+</p>
+
+
 
 <h3 id="bitcoinisdigitalgold"><a href="#bitcoinisdigitalgold">Bitcoin is Digital Gold</a></h3>
 
@@ -90,7 +144,7 @@ Or sound fiat money.
 Whichever you prefer.
 </p>
 
-<h3>Bitcoin is a Decentralized Public Ledger</h3>
+<h3>Bitcoin is a Public Ledger</h3>
 
 <h3 id="bitcoinismoney10"><a href="#bitcoinismoney10">Bitcoin is Money 1.0</a></h3>
 
@@ -131,7 +185,7 @@ When these fixes occur, we&#8217;ll bump up the version number to Money 1.1.
 
 
 
-<h2 id="howbitcoinworks">How Bitcoin Works</h2>
+<h2 id="howbitcoinworks"><a href="#howbitcoinworks">How Bitcoin Works</a></h2>
 
 <p>Bitcoin is often called a &#8220;decentralized digital currency&#8221;, because it is digital, like dollars, but there is no person or company who runs it.
 It is shocking that it is possible for such a thing to exist, and it&#8217;s important to understand how it works.
@@ -154,7 +208,11 @@ The first bitcoin client software was written by Satoshi Nakamoto and is availab
 <h3>Paper Wallets</h3>
 
 <h2>Trading: Buying and Selling Bitcoins</h2>
-<h2>The Price</h2>
+<h3>Exchanges</h3>
+<h3>Localbitcoins.com</h3>
+<h3>#bitcoin-otc</h3>
+<h3>The Price</h3>
+
 <h2>Merchants: Accepting Bitcoins</h2>
 <h2>Mining: Where New Bitcoins Come From</h2>
 <h2>What is Bitcoin Good For?</h2>
@@ -176,6 +234,8 @@ The first bitcoin client software was written by Satoshi Nakamoto and is availab
 <h3>Q: Is bitcoin anonymous?</h3>
 <h3>Q: Isn&#8217;t trust a good thing?</h3>
 <h3>Q: What are bitcoins backed by?</h3>
+<h3>Q: Just what is a &#8330;bitcoin?&#8221;</h3>
+<h3>Q: Can&#8217;t bitcoin be hacked with quantum computers?</h3>
 <h2>Noteworthy Events in Bitcoin&#8217;s History</h2>
 <h2>The History of Money, Technology, and Cryptography</h2>
 <h2>Conclusion</h2>
@@ -205,8 +265,8 @@ Dive Into Bitcoin is open-source, and available on <a href="https://github.com/r
 I welcome contributions.
 </p>
 
-<p>Dive Into Bitcoin is not issued under any particular license.
-Please use Dive Into Bitcoin as you see fit.
+<p>Dive Into Bitcoin is licensed under the &#8220;I trust you will use this wisely&#8221; license.
+You are free to use Dive Into Bitcoin as you see fit.
 </p>
 
       </div>
