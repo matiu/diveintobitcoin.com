@@ -28,7 +28,9 @@ If you&#8217;ve heard of bitcoin, and you&#8217;re curious about it, but you don
 <h2 id="whatisbitcoin"><a href="#whatisbitcoin">What is Bitcoin?</a></h2>
 
 <p>Since bitcoin is very novel, it&#8217;s hard to explain it in a few words.
-We will discuss a few different ways of thinking about bitcoin: bitcoin is a protocol, bitcoin is open-source software, bitcoin is digital gold, and bitcoin is a public ledger.
+We will discuss five different ways of thinking about bitcoin: <a href="#bitcoinisaprotocol">bitcoin is a protocol</a>, <a href="#bitcoinisopensourcesoftware">bitcoin is open-source software</a>, <a href="#bitcoinisdigitalgold">bitcoin is digital gold</a>, <a href="#bitcoinisapublicledger">bitcoin is a public ledger</a>, and <a href="#bitcoinismoney10">bitcoin is Money 1.0</a>.
+These analogies give a high-level overview of bitcoin and don&#8217;t need to be read in order.
+If you would like an in-depth description of how bitcoin works, that is in the next section, <a href="#howbitcoinworks">How Bitcoin Works</a>.
 </p>
 
 <h3 id="bitcoinisaprotocol"><a href="#bitcoinisaprotocol">Bitcoin is a Protocol</a></h3>
@@ -144,7 +146,41 @@ Or sound fiat money.
 Whichever you prefer.
 </p>
 
-<h3>Bitcoin is a Public Ledger</h3>
+<h3 id="bitcoinisapublicledger"><a href="#bitcoinisapublicledger">Bitcoin is a Public Ledger</a></h3>
+
+<p>Bitcoin is a distributed public ledger that keeps track of the balance of bitcoins in every address, and which addresses gave bitcoins to which other addresses.
+No one organization controls the ledger.
+Everyone who participates in bitcoin helps enforce the rules.
+And the rules are, basically, that there will only ever be 21 million bitcoins.
+</p>
+
+<p>
+A ledger is a record of transactions.
+The bitcoin ledger is the blockchain, which contains every bitcoin transaction that has ever occurred in chronological segments called blocks.
+Technically, the blockchain does not include a running total of the balance in every address; it just contains the history of transactions.
+The balance of an address can be calculated by summing the transactions.
+</p>
+
+<p>The blockchain is public knowledge.
+Anyone who runs a mining node or a full node has a record of the blockchain.
+Every time a miner finds a new block, this block is broadcast to the network and every other miner and full node adds this block to their copy of the blockchain.
+Every miner and full node audits the new blocks&#8212;they verify that all bitcoins are accounted for properly in the sense that no new bitcoins have been created out of thin-air and no bitcoins have been double-spent.
+</p>
+
+<p>No one organization controls the blockchain.
+If someone wishes to create bitcoins out of thin-air, they would have to convince every mining node and every full node to accept their counterfeit bitcoins, which is unlikely.
+In order to make this even more unlikely, anyone who participates in bitcoin is encouraged to run a full node to audit the blockchain.
+</p>
+
+<p>The rules of bitcoin are as follows: 1) When someone wishes to transfer bitcoins, they broadcast their transaction to the network. 2) Miners pool recent transactions and try to find a proof-of-work hash on the transactions. 3) When a sufficiently low proof-of-work hash is found, this is called a block, and it is broadcast to the network. 4) The difficulty of the proof-of-work hash is adjusted every two weeks so that it always takes about ten minutes to find a block. 5) Miners get any transaction fees included in the block they found, plus N new bitcoins. 6) The number N is 50 for the first four years, 25 for the next four years, and so on, halving every four years. This eventually reaches a limit&#8212;it can be calculated that there will never be more than 21 million bitcoins.</p>
+
+<p>That&#8217;s bitcoin: a giant public ledger containing the history of all bitcoin transactions.
+Anyone can view the ledger and audit it&#8212;people who do this are either miners or full nodes.
+Auditing bitcoin means making sure that the rules are being followed, and the rules are, basically, that miners get the new bitcoins when they find a block, and no one can double-spend or counterfeit bitcoins.
+From this it is implied that there will never be more than 21 million bitcoins.
+</p>
+
+
 
 <h3 id="bitcoinismoney10"><a href="#bitcoinismoney10">Bitcoin is Money 1.0</a></h3>
 
