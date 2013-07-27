@@ -277,7 +277,7 @@ For instance, putting the word &#8220;hello&#8221; into something called the SHA
 <pre>&gt; sha256sum &lt;(echo -n "Hello")
 185f8db32271fe25f561a6fc938b2e264306ec304eda518007d1764826381969</pre>
 
-<p>It still looks like random junk, but now it&#8217;s completely different random junk than one was before. Compare:
+<p>It still looks like random junk, but now it&#8217;s completely different random junk than it was before. Compare:
 </p>
 
 <pre>2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
@@ -318,7 +318,8 @@ for (var i=0; true; i++) {
 058fe74de5c867456e19e527a30a5243d2a54faa28aa028da19d494d168bc227
 </pre>
 
-<p>So in order to produce a hash that started with one zero (in hex&#8212;in binary, it would actually be 4 zeros), we had to run the hash function 13 times.
+<p>Notice how the first character is 0.
+So in order to produce a hash that started with one zero (in hex&#8212;in binary, it would actually be 4 zeros), we had to run the hash function 13 times.
 Suppose we wanted it to start with two zeros?
 We can quickly modify our node.js program:</p>
 
@@ -344,7 +345,7 @@ We can see where this is going.
 The more zeros we wish our hash to start with, the more times we have to run the hash function.
 In fact, each zero makes the number of computations exponentially more numerous.
 Roughly speaking, the first zero can be found after about 2<sup>4</sup>=16 hashes, since there are 2<sup>4</sup>=16 possibilities for the first number.
-Finding two zeroes takes 2<sup>4</sup>*2<sup>4</sup>=128 hashes.
+Finding two zeroes takes roughly 2<sup>4</sup>*2<sup>4</sup>=256 hashes.
 Each new zero introduces a factor of 16 more computations that we have to do to be able to find a satisfying hash.
 </p>
 
