@@ -219,18 +219,155 @@ But this is a problem that can and will be fixed, like all other minor issues.
 When these fixes occur, we&#8217;ll bump up the version number to Money 1.1.
 </p>
 
+<h3 id="whatisbitcoinconcludingremarks"><a href="#whatisbitcoinconcludingremarks">What is Bitcoin? Concluding Remarks</a></h3>
+
+<p>
+It&#8217;s difficult to explain what bitcoin is because it is new and quite different than anything that has come before.
+Imagine trying to explain what the internet was back in 1975.
+Since nothing quite like it had existed before, there was a big mental hurdle to explain it to anyone.
+The same is true for bitcoin.
+</p>
+
+<p>
+We&#8217;ve discussed five analogies on what bitcoin is.
+I hope these analogies have helped.
+If you&#8217;re still scratching your head, note that we have not yet covered in detail how bitcoin actually works, which is covered in the <a href="#howbitcoinworks">next section</a>.
+Another option is to gain experience actually using bitcoin.
+For that, you will want to know how to use a <a href="#wallets">bitcoin wallet</a> to store and manage your bitcoins, and how to <a href="#tradingbuyingandsellingbitcoin">buy and sell bitcoin</a>.
+</p>
 
 
 <h2 id="howbitcoinworks"><a href="#howbitcoinworks">How Bitcoin Works</a></h2>
 
 <p>Bitcoin is often called a &#8220;decentralized digital currency&#8221;, because it is digital, like dollars, but there is no person or company who runs it.
 It is shocking that it is possible for such a thing to exist, and it&#8217;s important to understand how it works.
-But before we do that, we need to understand a few elements first:
-<ul>
-<li>Hash functions</li>
-<li>Asymmetric key cryptography for digital signatures</li>
-<li>Peer-to-peer (p2p) networks</li>
-</ul>
+But before we do that, we need to understand a few elements first: <a href="#hashfunctions">hash functions</a>, <a href="#publickeysandprivatekeys">public keys and private keys</a>, and peer-to-peer (p2p) networks.</p>
+
+<h3 id="hashfunctions"><a href="#hashfunctions">Hash Functions</a></h3>
+
+<p>
+A toaster is a function: it takes in bread and outputs toast.
+A <strong>function</strong> in the computer sense is a program that that takes in data and outputs modified data.
+A number goes in, and another number, possibly a different one, comes out.
+Like a toaster, but virtual.
+</p>
+
+<p>
+A <strong>hash function</strong> is a special kind of function that takes in data and outputs something that looks like, although it isn&#8217;t, random data.
+For instance, putting the word &#8220;hello&#8221; into something called the SHA256 hash algorithm produces this:</p>
+
+<pre>2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824</pre>
+
+<p>If you happen to be using a Linux or Mac computer, open up a terminal, and do this yourself with the sha256sum command:</p>
+
+<pre>&gt; sha256sum &lt;(echo -n "hello")
+2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824</pre>
+
+<p>It looks like random junk. But it&#8217;s not really random. Type that in several times, and it will always produce the same output:</p>
+
+<pre>&gt; sha256sum &lt;(echo -n "hello")
+2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
+&gt; sha256sum &lt;(echo -n "hello")
+2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
+&gt; sha256sum &lt;(echo -n "hello")
+2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824</pre>
+
+<p>But if we modify it very slightly, say by capitalizing the H and hashing &#8220;Hello&#8221; instead of &#8220;hello&#8221;, we get a very different result:</p>
+
+<pre>&gt; sha256sum &lt;(echo -n "Hello")
+185f8db32271fe25f561a6fc938b2e264306ec304eda518007d1764826381969</pre>
+
+<p>It still looks like random junk, but now it&#8217;s completely different random junk than one was before. Compare:
+</p>
+
+<pre>2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
+185f8db32271fe25f561a6fc938b2e264306ec304eda518007d1764826381969</pre>
+
+<p>This is a key feature of hash functions: they output something that looks completely random, but you can easily reproduce the output by running the function again with the same input.
+This feature allows hash functions to be used for <strong>proof-of-work</strong>, which is when some data is hashed with a nonce (a number), and the nonce is iterated until a very low value of the hash is found (which is a hash that starts with many zeros).
+For instance, here is the word &#8220;hello&#8221; with a nonce prepended to it, and then hashed:
+</p>
+
+<pre>&gt;sha256sum &lt;(echo -n "10000 hello")
+c748c0f280aba520974c4aea1f4b366421687e7dd2f3e122de62e011f72627a1</pre>
+
+<p>If we try this with a different nonce, we get a different value:</p>
+
+<pre>&gt;sha256sum &lt;(echo -n "10001 hello")
+5923eb1c62d3588c3c88fb50bd582895e36bf0e38c7cb28ca8e08afc2f641cda</pre>
+
+<p>If we try this with enough different nonces, we will eventually get a hash that starts with a 0.
+We can write a short program in node.js that does this for us:
+</p>
+
+<pre>
+crypto=require('crypto');
+
+for (var i=0; true; i++) {
+  var myhash=crypto.createHash('sha256').update(""+i+" hello").digest('hex');
+  if (myhash[0]==0) {
+    console.log(i);
+    break;
+  };
+};
+</pre>
+
+<p>This program outputs the number 13, meaning the nonce we need is 13 to create a hash that starts with a 0. Indeed, we see that:</p>
+
+<pre>&gt; sha256sum &lt;(echo -n "13 hello")
+058fe74de5c867456e19e527a30a5243d2a54faa28aa028da19d494d168bc227
+</pre>
+
+<p>So in order to produce a hash that started with one zero (in hex&#8212;in binary, it would actually be 4 zeros), we had to run the hash function 13 times.
+Suppose we wanted it to start with two zeros?
+We can quickly modify our node.js program:</p>
+
+<pre>
+crypto=require('crypto');
+
+for (var i=0; true; i++) {
+  var myhash=crypto.createHash('sha256').update(""+i+" hello").digest('hex');
+  if (myhash[0]==0 && myhash[1]==0) {
+    console.log(i);
+    break;
+  };
+};
+</pre>
+
+<p>This outputs 66, and indeed:</pre>
+
+<pre>&gt; sha256sum &lt;(echo -n "66 hello")
+007800d611fddf2c0c64e1623511a3f7878e1012cddfe252a0fe0d87a53f40a5</pre>
+
+<p>We had to run the hash 66 times, quite a bit more than 13 and far more than 1, in order to produce a hash that starts with two zeros.
+We can see where this is going.
+The more zeros we wish our hash to start with, the more times we have to run the hash function.
+In fact, each zero makes the number of computations exponentially more numerous.
+Roughly speaking, the first zero can be found after about 2<sup>4</sup>=16 hashes, since there are 2<sup>4</sup>=16 possibilities for the first number.
+Finding two zeroes takes 2<sup>4</sup>*2<sup>4</sup>=128 hashes.
+Each new zero introduces a factor of 16 more computations that we have to do to be able to find a satisfying hash.
+</p>
+
+<p>Proof-of-work makes it possible to prove that a lot of computation was used to look at some data.
+In this case we have been using the word &#8220;hello&#8221; as our data, but the data could have been anything, like an email.
+By attaching a proof-of-work hash to an email, you can prove you&#8217;ve put a lot of computational work into the email, making it less likely to be spam (since spammers would not want to waste computational power sending out spam email).
+This has been implemented and it&#8217;s called <a href="http://www.hashcash.org/">Hashcash</a>.
+Finding a proof-of-work hash requires a lot of work since it requires many calls to a hash function, but it requires almost no work for someone to check to see that the work has been done, since that requires only a single call to a hash function.
+</p>
+
+<p>As we will see, bitcoin implements proof-of-work in order to prove that a lot of computational power has looked at transactions.
+The more computational power that has looked at transactions, the the more we can rely on those transactions to not be reversed at a later time.
+</p>
+
+<p>There is one more way bitcoin uses hash functions:
+It is almost impossible to know what data was input into a hash function by only seeing its output.
+The only to know that is to try every conceivable input until you find the input that gives you the right output.
+Bitcoin hides public keys this way&#8212;bitcoin addresses are not public keys, they are hashes of public keys.
+But to understand this, we must first explain <a href="#publickeysandprivatekeys">public keys and private keys</a>.
+</p>
+
+<h3 id="publickeysandprivatekeys"><a href="#publickeysandprivatekeys">Public Keys and Private Keys</a></h3>
+
 
 
 <h2>Wallets: Using Bitcoin</h2>
