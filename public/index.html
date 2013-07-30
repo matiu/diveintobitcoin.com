@@ -247,14 +247,14 @@ But before we do that, we need to understand a few elements first: <a href="#has
 
 <p>
 A toaster is a function: it takes in bread and outputs toast.
-A <strong>function</strong> in the computer sense is a program that that takes in data and outputs modified data.
+A <a href="https://en.wikipedia.org/wiki/Subroutine"><strong>function</strong></a> in the computer sense is a program that that takes in data and outputs modified data.
 A number goes in, and another number, possibly a different one, comes out.
 Like a toaster, but virtual.
 </p>
 
 <p>
-A <strong>hash function</strong> is a special kind of function that takes in data and outputs something that looks like, although it isn&#8217;t, random data.
-For instance, putting the word &#8220;hello&#8221; into something called the SHA256 hash algorithm produces this:</p>
+A <a href="https://en.wikipedia.org/wiki/Hash_function"><strong>hash function</strong></a> is a special kind of function that takes in data and outputs something that looks like, although it isn&#8217;t, random data.
+For instance, putting the word &#8220;hello&#8221; into something called the <a href="https://en.wikipedia.org/wiki/SHA-2">SHA256</a> hash algorithm produces this:</p>
 
 <pre>2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824</pre>
 
@@ -328,7 +328,7 @@ crypto=require('crypto');
 
 for (var i=0; true; i++) {
   var myhash=crypto.createHash('sha256').update(""+i+" hello").digest('hex');
-  if (myhash[0]==0 && myhash[1]==0) {
+  if (myhash[0]==0 &amp;&amp; myhash[1]==0) {
     console.log(i);
     break;
   };
@@ -369,7 +369,102 @@ But to understand this, we must first explain <a href="#publickeysandprivatekeys
 
 <h3 id="publickeysandprivatekeys"><a href="#publickeysandprivatekeys">Public Keys and Private Keys</a></h3>
 
+<p>Bitcoin uses something called <a href="https://en.wikipedia.org/wiki/Public-key_cryptography">asymmetric key cryptography</a> for <a href="https://en.wikipedia.org/wiki/Digital_signature">digital signatures</a> in order to verify that only the person who actually owns a bitcoin balance can send those bitcoins to someone else.
+</p>
 
+<p>The idea of asymmetric key crypography is this:
+There is a piece of data, like a digital contract.
+There is also a person has two numbers: a <strong>private key</strong>, and a <strong>public key</strong>.
+This person can sign the data with their private key, producing a <strong>signature</strong>.
+The person then distributes the data, their public key, and the signature.
+Anyone can verify, using only the public key and the data, that the person who owns the private key must have used it to produce the signature.
+Anyone can verify this without ever needing to see the private key.
+The owner of the private key never needs to share their private key, and yet it is still possible for other people to confirm that they produced the signature.
+</p>
+
+<p>The fact that it is possible to do such a thing is extremely valuable for confirming someone&#8217;s identity.
+In a way, a person&#8217;s public key is their name.
+If you want to verify a person&#8217;s identity, simply provide to them a random number and then ask them to sign the random number.
+If they are who they say they are, they will be able to produce a signature which you can verify corresponds to their public key.
+If they are not who they say they are, they will not be able to produce a signature, or it will correspond to a different public key.
+(It&#8217;s important that the number you provide be random, otherwise an adversary may have intercepted one of this person&#8217;s authentication messages at another time, and then could simply copy it on demand without needing to actually re-calculate the signature.)
+</p>
+
+<p>Asymmetric key cryptography is how bitcoin verifies that only the owner of a bitcoin balance is who is able to send those bitcoins, and not some imposter.
+Each bitcoin address has a public key, and the person who owns that address also has the private key.
+When someone wishes to send bitcoins, they sign a transaction with their private key.
+Then they broadcast this transaction, along with the signature, and their public key.
+Other people are able to verify that only the person who owned the private key could have signed this transaction.
+They are able to verify this without ever needing to see the private key.
+</p>
+
+<p>Note that it is very important to keep your private keys private.
+If someone else gets ahold of your private keys, they can sign transactions in your name, and no one else will be able to tell that it was really an imposter that signed the transaction.</p>
+
+<p>There is one other complication in the way bitcoin handles balances:
+A bitcoin address is a hash of a public key, not a public key.
+When sending bitcoins to an address, no one knows the public key of that address (much less the private key), until that person chooses to send bitcoins out of their address, at which time they broadcast the public key (and they never broadcast the private key).
+</p>
+
+<p>We can use the website <a href="http://brainwallet.org/">brainwallet.org</a> to gain some experience with bitcoin signatures.
+There are two primary kinds of information you can sign with a bitcoin address: a transaction, or a message.
+A transaction is basically when you send bitcoins out of your address to another address.
+A message is a piece of information that you may wish to sign for other purposes, say if you wish to verify that you own a bitcoin address to someone without having to reveal your private key.
+On the <a href="http://brainwallet.org/#sign">sign message</a> page, the default private key is this:
+</p>
+
+<pre>5JeWZ1z6sRcLTJXdQEDdB986E6XfLAkj9CgNE4EHzr5GmjrVFpf</pre>
+
+<p>The corresponding address, which is a hash of the public key, is this:</p>
+
+<pre>17mDAmveV5wBwxajBsY7g1trbMW1DVWcgL</pre>
+
+<p>And here is the default message that we can sign (although you could substitute any message you want):</p>
+
+<pre>C'est par mon ordre et pour le bien de l'Etat que le porteur du présent a fait ce qu'il a fait.</pre>
+
+<p>And finally, here is a signature produced based on this private key and message:</p>
+
+<pre>G2Sy7dA+LZN0SJ+pzKXNlEDNST9A+TW0VI+jCtA37dgkudjYGzRHisDNdllAb0dyQAVByvQE/sHF4FXC7VL5Qrk=</pre>
+
+<p>Note that the generation of a signature involves a random number, so every time you create a new signature, the signature will be different. If you try this on your own, you will get a different signature.</p>
+
+<p>If we then jump over to the <a href="http://brainwallet.org/#verify">verify</a> page, we can check this message:</p>
+
+<pre>C'est par mon ordre et pour le bien de l'Etat que le porteur du présent a fait ce qu'il a fait.</pre>
+
+<p>And this signature:</p>
+
+<pre>G2Sy7dA+LZN0SJ+pzKXNlEDNST9A+TW0VI+jCtA37dgkudjYGzRHisDNdllAb0dyQAVByvQE/sHF4FXC7VL5Qrk=</pre>
+
+<p>Note that although we do not provide a public key explicitly, the public key can be derived from the signature, so the public key is known to someone verifying the signature.</p>
+
+<p>And indeed, we see that this signature corresponds to this address:</p>
+
+<pre>17mDAmveV5wBwxajBsY7g1trbMW1DVWcgL</pre>
+
+<p>Which is the address corresponding to the private key we started with.
+Now suppose someone else controlled this address, and we wanted to verify that they did in fact control it.
+We could give them a random number, say, 482029485829038577747, and then have them sign that number.
+Once they sign that number, they produce this signature:</p>
+
+<pre>G6G6Qe3oa4KR7sRHNwE5gUSExEGvn4unyvsJBDXqvNEGh7oRt3Nt+5L1I/gl/hBbQXO5bbcj2DibHLjaLHlmaZQ=</pre>
+
+<p>By verifying this signature, we see that it does in fact correspond to this address:</p>
+
+<pre>17mDAmveV5wBwxajBsY7g1trbMW1DVWcgL</pre>
+
+<p>Therefore we can know with confidence that the person we are talking with controls that address.</p>
+
+<p>The type of asymmetric key cryptography used by bitcoin is called elliptic curve cryptography, and in particular it uses a curve called <a href="https://en.bitcoin.it/wiki/Secp256k1">secp256k1</a>.
+Since the way bitcoin uses elliptic curves is to produce digital signatures, it also often goes by the name ECDSA, which means elliptic curve digital signature algorithm.
+(It is also possible to use elliptic curves for encryption using <a href="https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange">Diffie-Hellman key exchange</a>.)
+If you would like to learn in detail how the mathematics of elliptic curves works, check out <a href="http://kakaroto.homelinux.net/2012/01/how-the-ecdsa-algorithm-works/">this article</a> and <a href="https://engineering.purdue.edu/kak/compsec/NewLectures/Lecture14.pdf">this set of lecture notes</a>.
+</p>
+
+<h3>Peer-to-Peer (p2p) Networks</h3>
+
+<h3>Putting the Pieces Together</h3>
 
 <h2>Wallets: Using Bitcoin</h2>
 
